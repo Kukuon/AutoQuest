@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:gravity="center">
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="О РАЗРАБОТЧИКЕ"
+            android:textSize="25dp"
+            android:gravity="center">
+        </TextView>
+
+        <ImageView
+            android:id="@+id/ImageViewAvatar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            tools:srcCompat="@tools:sample/avatars" />
+
+        <TextView
+            android:id="@+id/TExtVIewFIO"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/developer_name" />
+
+        <TextView
+            android:id="@+id/TextViewStudentGroup"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/studentGroup" />
+
+        <TextView
+            android:id="@+id/TextViewYearDev"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/yearDev" />
+
+        <TextView
+            android:id="@+id/TextViewEmail"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/email" />
+
+        <Button
+            android:id="@+id/button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:height="50dp"
+            android:width="150dp"
+            android:textSize="20dp"
+            android:text="Назад"
+            android:backgroundTint="@color/color_main" />
+    </LinearLayout>
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

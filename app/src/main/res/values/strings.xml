@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">AutoQuest</string>
+    <string name="developer_name">Кукушкин Алексей Олегович</string>
+    <string name="studentGroup">ИКБО-13-22</string>
+    <string name="yearDev">2024</string>
+    <string name="email">kukuon04@gmail.com</string>
 </resources>
