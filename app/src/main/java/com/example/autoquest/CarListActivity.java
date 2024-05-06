@@ -1,15 +1,16 @@
 package com.example.autoquest;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
-import android.content.ContentValues;
 import android.content.Intent;
-import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.Toast;
 
-import com.example.autoquest.databinding.AddCarLayoutBinding;
 import com.example.autoquest.databinding.CarListLayoutBinding;
 
 import java.util.ArrayList;
@@ -17,9 +18,11 @@ import java.util.List;
 
 public class CarListActivity extends AppCompatActivity {
 
-    List<Car> carList = new ArrayList<>();
+    private ArrayList<Car> arrayList;
     private CarListLayoutBinding carListBinding;
-    private AddCarLayoutBinding addCarLayoutBinding;
+    private DBHandler dbHandler;
+    private RecyclerView recyclerView;
+    private CarAdapter carAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,32 +30,25 @@ public class CarListActivity extends AppCompatActivity {
         carListBinding = CarListLayoutBinding.inflate(getLayoutInflater());
         setContentView(carListBinding.getRoot());
 
+        arrayList = new ArrayList<>();
+        dbHandler = new DBHandler(CarListActivity.this);
+
+        arrayList = dbHandler.readCars();
+
+        carAdapter = new CarAdapter(arrayList, CarListActivity.this);
+        recyclerView = findViewById(R.id.RVList);
+
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(CarListActivity.this, RecyclerView.VERTICAL, false);
+        recyclerView.setLayoutManager(linearLayoutManager);
+
+        recyclerView.setAdapter(carAdapter);
+
         carListBinding.addOfferButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent switchToCarAddActivityIntent = new Intent(CarListActivity.this, AddCarActivity.class);
-                startActivity(switchToCarAddActivityIntent);
+                Intent intent = new Intent(CarListActivity.this, AddingCarActivity.class);
+                startActivity(intent);
             }
         });
-
-
-        CarAdapter adapter = new CarAdapter(this, carList);
-
-        ListView listView = findViewById(R.id.carList);
-        listView.setAdapter(adapter);
-
-
-    }
-
-    protected void saveToDB() {
-        SQLiteDatabase database = new CarDatabaseHelper(this).getWritableDatabase();
-        ContentValues values = new ContentValues();
-        values.put(DBContract.Car.COLUMN_BRAND, addCarLayoutBinding.brandEditText.getText().toString());
-        values.put(DBContract.Car.COLUMN_MODEL, addCarLayoutBinding.modelEditText.getText().toString());
-        values.put(DBContract.Car.COLUMN_YEAR, addCarLayoutBinding.yearEditText.getText().toString());
-        values.put(DBContract.Car.COLUMN_PRICE, addCarLayoutBinding.priceEditText.getText().toString());
-        values.put(DBContract.Car.COLUMN_POWER, addCarLayoutBinding.powerEditText.getText().toString());
-
-        long newRowId = database.insert(DBContract.Car.TABLE_NAME, null, values);
     }
 }

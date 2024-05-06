@@ -1,26 +1,28 @@
 package com.example.autoquest;
 
 public class Car {
+    private int id;
     private String brand;
     private String model;
-    private int price;
     private int year;
-    private String fuelType;
-    private int enginePower;
-    private int engineCapacity;
-    private String transmissionType;
-    private int imageResource;
+    private int power;
+    private int price;
 
-    public Car(String brand, String model, int price, int year, String fuelType, int enginePower, int engineCapacity, String transmissionType, int imageResource) {
+
+    public Car(String brand, String model, int year, int power, int price) {
         this.brand = brand;
         this.model = model;
-        this.price = price;
         this.year = year;
-        this.fuelType = fuelType;
-        this.enginePower = enginePower;
-        this.engineCapacity = engineCapacity;
-        this.transmissionType = transmissionType;
-        this.imageResource = imageResource;
+        this.power = power;
+        this.price = price;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     public String getBrand() {
@@ -55,44 +57,12 @@ public class Car {
         this.year = year;
     }
 
-    public String getFuelType() {
-        return fuelType;
+    public int getPower() {
+        return power;
     }
 
-    public void setFuelType(String fuelType) {
-        this.fuelType = fuelType;
-    }
-
-    public int getEnginePower() {
-        return enginePower;
-    }
-
-    public void setEnginePower(int enginePower) {
-        this.enginePower = enginePower;
-    }
-
-    public int getEngineCapacity() {
-        return engineCapacity;
-    }
-
-    public void setEngineCapacity(int engineCapacity) {
-        this.engineCapacity = engineCapacity;
-    }
-
-    public String getTransmissionType() {
-        return transmissionType;
-    }
-
-    public void setTransmissionType(String transmissionType) {
-        this.transmissionType = transmissionType;
-    }
-
-    public int getImageResource() {
-        return imageResource;
-    }
-
-    public void setImageResource(int imageResource) {
-        this.imageResource = imageResource;
+    public void setPower(int power) {
+        this.power = power;
     }
 }
 

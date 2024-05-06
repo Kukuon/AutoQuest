@@ -19,13 +19,23 @@ public class LoginActivity extends AppCompatActivity {
         loginBinding = LoginLayoutBinding.inflate(getLayoutInflater());
         setContentView(loginBinding.getRoot());
 
+
+        // Button Go to CAR LIST ACTIVITY  without registration
         loginBinding.noAccountButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent switchToCarListIntent = new Intent(LoginActivity.this, CarListActivity.class);
-                startActivity(switchToCarListIntent);
+                Intent intent = new Intent(LoginActivity.this, CarListActivity.class);
+                startActivity(intent);
+            }
+        });
+
+        // Button Go to REGISTRATION ACTIVITY
+        loginBinding.registrationButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(LoginActivity.this, RegistrationActivity.class);
+                startActivity(intent);
             }
         });
     }
-
 }

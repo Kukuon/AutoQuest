@@ -5,60 +5,63 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.ListView;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
+import androidx.recyclerview.widget.RecyclerView;
+
+import java.util.ArrayList;
 import java.util.List;
 
-public class CarAdapter extends BaseAdapter {
-    private List<Car> mData;
-    private Context mContext;
+public class CarAdapter extends RecyclerView.Adapter<CarAdapter.ViewHolder> {
+    private ArrayList<Car> arrayList;
+    private Context context;
 
-    public CarAdapter(Context context, List<Car> data) {
-        this.mContext = context;
-        this.mData = data;
+    // constructor
+    public CarAdapter(ArrayList<Car> arrayList, Context context) {
+        this.context = context;
+        this.arrayList = arrayList;
+    }
+
+    @NonNull
+    @Override
+    public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        View view = LayoutInflater.from(context).inflate(R.layout.list_item_layout, parent, false);
+        return new ViewHolder(view);
     }
 
     @Override
-    public int getCount() {
-        return mData.size();
+    public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
+        // on below line we are setting data
+        // to our views of recycler view item.
+        Car car = arrayList.get(position);
+        holder.brandTV.setText(car.getBrand());
+        holder.modelTV.setText(car.getModel());
+        holder.yearTV.setText(String.valueOf(car.getYear()));
+        holder.powerTV.setText(String.format("%s л.с.", String.valueOf(car.getPower())));
+        holder.priceTV.setText(String.format("%s ₽", String.valueOf(car.getPrice())));
     }
 
     @Override
-    public Object getItem(int position) {
-        return mData.get(position);
+    public int getItemCount() {
+        return arrayList.size();
     }
 
-    @Override
-    public long getItemId(int position) {
-        return position;
-    }
+    static class ViewHolder extends RecyclerView.ViewHolder {
 
-    @Override
-    public View getView(int position, View convertView, ViewGroup parent) {
-        ViewHolder holder;
+        private TextView brandTV, modelTV, yearTV, powerTV, priceTV;
 
-        if (convertView == null) {
-            LayoutInflater inflater = LayoutInflater.from(mContext);
-            convertView = inflater.inflate(R.layout.list_item_layout, parent, false);
-            holder = new ViewHolder();
-            holder.titleTextView = convertView.findViewById(R.id.brandEditText);
-            // Найдите другие представления и установите обработчики событий здесь
-            convertView.setTag(holder);
-        } else {
-            holder = (ViewHolder) convertView.getTag();
+        public ViewHolder(@NonNull View itemView) {
+            super(itemView);
+
+            brandTV = itemView.findViewById(R.id.brandTextView);
+            modelTV = itemView.findViewById(R.id.modelValue);
+            yearTV = itemView.findViewById(R.id.yearValue);
+            powerTV = itemView.findViewById(R.id.powerValue);
+            priceTV = itemView.findViewById(R.id.priceValue);
+
         }
-
-        Car car = mData.get(position);
-
-        holder.titleTextView.setText(car.getBrand());
-        // Установите другие данные машины в соответствующие представления здесь
-
-        return convertView;
-    }
-
-    static class ViewHolder {
-        TextView titleTextView;
-        // Добавьте другие представления здесь
     }
 }
 

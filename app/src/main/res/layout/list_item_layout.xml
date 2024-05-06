@@ -1,93 +1,135 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.cardview.widget.CardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <LinearLayout
+    <GridLayout
+        android:id="@+id/grid"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:padding="16dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        android:columnCount="3"
+        android:rowCount="6"
+        app:layout_constraintTop_toTopOf="parent"
+        android:padding="35dp">
 
         <TextView
-            android:id="@+id/brand"
-            android:layout_width="match_parent"
+            android:id="@+id/brandTextView"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:padding="10dp"
-            android:text="Ferrari GT Sport"
-            android:textColor="@android:color/black"
-            android:textSize="18sp" />
+            android:layout_row="0"
+            android:layout_column="0"
+            android:text="car_name"
+            android:textStyle="bold"
+            android:textSize="30sp"
+            android:padding="10dp"/>
 
-        <!-- Изображение -->
+
+
         <ImageView
-            android:id="@+id/offerImage"
-            android:layout_width="match_parent"
-            android:layout_height="220dp"
+            android:id="@+id/imageView"
+            android:layout_width="wrap_content"
+            android:layout_height="300dp"
+            android:layout_row="1"
+            android:layout_column="0"
+            android:layout_columnSpan="3"
             android:scaleType="centerCrop"
-            android:src="@drawable/car" />
+            app:srcCompat="@drawable/car" />
 
-        <!-- Описание -->
-        <TextView
-            android:id="@+id/power"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:text="Мощность:"
-            android:textSize="14sp" />
-        <TextView
-            android:id="@+id/year"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:text="Объем двигателя:"
-            android:textSize="14sp" />
-        <TextView
-            android:id="@+id/model"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:text="Трансмиссия:"
-            android:textSize="14sp" />
 
-        <LinearLayout
-            android:layout_width="match_parent"
+
+        <TextView
+            android:id="@+id/modelTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_row="2"
+            android:layout_column="0"
+            android:text="Модель"
+            android:textSize="20sp"
+            android:padding="10dp"/>
+
+
+        <TextView
+            android:id="@+id/modelValue"
+            android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:gravity="center_vertical">
-            <Button
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:id="@+id/moreDetailsButton"
-                android:text="Подробнее"
-                android:layout_margin="10dp"
-                android:backgroundTint="@color/color_main"/>
+            android:layout_row="2"
+            android:layout_column="1"
+            android:padding="10dp"
+            android:text=""
+            android:textSize="20sp" />
 
-            <ImageButton
-                android:id="@+id/addToCartButton"
-                android:layout_width="60dp"
-                android:layout_height="55dp"
-                android:backgroundTint="@android:color/transparent"
-                android:scaleType="fitCenter"
-                android:src="@drawable/icon_cart"
-                android:contentDescription="cart"/>
-
-            <TextView
-                android:id="@+id/price"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_margin="10dp"
-                android:gravity="center"
-                android:layout_weight="1"
-                android:text="3490000 руб"
-                android:textSize="20sp" />
-        </LinearLayout>
+        <TextView
+            android:id="@+id/yearTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_row="3"
+            android:layout_column="0"
+            android:text="Год выпуска"
+            android:textSize="20sp"
+            android:padding="10dp"/>
 
 
+        <TextView
+            android:id="@+id/yearValue"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_row="3"
+            android:layout_column="1"
+            android:padding="10dp"
+            android:text=""
+            android:textSize="20sp" />
 
-    </LinearLayout>
+        <TextView
+            android:id="@+id/powerTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_row="4"
+            android:layout_column="0"
+            android:text="Двигатель"
+            android:textSize="20sp"
+            android:padding="10dp"/>
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+        <TextView
+            android:id="@+id/powerValue"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text=""
+            android:textSize="20sp"/>
+
+        <Button
+            android:id="@+id/moreDetailsButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_row="5"
+            android:layout_column="0"
+            android:text="Подробнее"
+            android:textSize="25sp"
+            android:layout_margin="10dp"
+            android:backgroundTint="@color/color_main"/>
+
+        <ImageButton
+            android:id="@+id/addToCartButton"
+            android:layout_width="63dp"
+            android:layout_height="63dp"
+            android:layout_row="5"
+            android:layout_column="2"
+            android:layout_gravity="center_vertical"
+            android:contentDescription="addToCartButton"
+            android:backgroundTint="@android:color/transparent"
+            app:srcCompat="@drawable/icon_cart" />
+
+        <TextView
+            android:id="@+id/priceValue"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_row="5"
+            android:layout_column="1"
+            android:text=""
+            android:textSize="30sp"
+            android:layout_gravity="center"/>
+    </GridLayout>
+
+
+</androidx.cardview.widget.CardView>
