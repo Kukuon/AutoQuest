@@ -6,31 +6,31 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 
-import com.example.autoquest.databinding.LoginLayoutBinding;
+import com.example.autoquest.databinding.LoginActivityLayoutBinding;
 
 
 public class LoginActivity extends AppCompatActivity {
 
-    private LoginLayoutBinding loginBinding;
+    private LoginActivityLayoutBinding loginActivityLayoutBinding;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        loginBinding = LoginLayoutBinding.inflate(getLayoutInflater());
-        setContentView(loginBinding.getRoot());
+        loginActivityLayoutBinding = LoginActivityLayoutBinding.inflate(getLayoutInflater());
+        setContentView(loginActivityLayoutBinding.getRoot());
 
 
         // Button Go to CAR LIST ACTIVITY  without registration
-        loginBinding.noAccountButton.setOnClickListener(new View.OnClickListener() {
+        loginActivityLayoutBinding.noAccountButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(LoginActivity.this, CarListActivity.class);
+                Intent intent = new Intent(LoginActivity.this, MainActivity.class);
                 startActivity(intent);
             }
         });
 
         // Button Go to REGISTRATION ACTIVITY
-        loginBinding.registrationButton.setOnClickListener(new View.OnClickListener() {
+        loginActivityLayoutBinding.registrationButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(LoginActivity.this, RegistrationActivity.class);

@@ -39,7 +39,6 @@ public class CarAdapter extends RecyclerView.Adapter<CarAdapter.ViewHolder> {
         holder.brandTV.setText(car.getBrand());
         holder.modelTV.setText(car.getModel());
         holder.yearTV.setText(String.valueOf(car.getYear()));
-        holder.powerTV.setText(String.format("%s л.с.", String.valueOf(car.getPower())));
         holder.priceTV.setText(String.format("%s ₽", String.valueOf(car.getPrice())));
     }
 
@@ -50,17 +49,15 @@ public class CarAdapter extends RecyclerView.Adapter<CarAdapter.ViewHolder> {
 
     static class ViewHolder extends RecyclerView.ViewHolder {
 
-        private TextView brandTV, modelTV, yearTV, powerTV, priceTV;
+        private TextView brandTV, modelTV, yearTV, priceTV;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
 
             brandTV = itemView.findViewById(R.id.brandTextView);
-            modelTV = itemView.findViewById(R.id.modelValue);
-            yearTV = itemView.findViewById(R.id.yearValue);
-            powerTV = itemView.findViewById(R.id.powerValue);
+            modelTV = itemView.findViewById(R.id.modelTextView);
+            yearTV = itemView.findViewById(R.id.yearTextView);
             priceTV = itemView.findViewById(R.id.priceValue);
-
         }
     }
 }

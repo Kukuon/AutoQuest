@@ -7,6 +7,7 @@ public class Car {
     private int year;
     private int power;
     private int price;
+    private String imagePath;
 
 
     public Car(String brand, String model, int year, int power, int price) {

@@ -4,23 +4,22 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 
-import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.example.autoquest.databinding.RegistrationLayoutBinding;
+import com.example.autoquest.databinding.RegistrationActivityLayoutBinding;
 
 public class RegistrationActivity extends AppCompatActivity {
 
-    private RegistrationLayoutBinding registrationLayoutBinding;
+    private RegistrationActivityLayoutBinding registrationActivityLayoutBinding;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        registrationLayoutBinding = RegistrationLayoutBinding.inflate(getLayoutInflater());
-        setContentView(registrationLayoutBinding.getRoot());
+        registrationActivityLayoutBinding = RegistrationActivityLayoutBinding.inflate(getLayoutInflater());
+        setContentView(registrationActivityLayoutBinding.getRoot());
 
         // Button Go to LOGIN ACTIVITY
-        registrationLayoutBinding.backButton.setOnClickListener(new View.OnClickListener() {
+        registrationActivityLayoutBinding.backButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(RegistrationActivity.this, LoginActivity.class);
