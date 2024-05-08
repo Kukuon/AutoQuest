@@ -7,10 +7,6 @@
     <string name="aboutProgramButtonInfo">See info about program</string>
     <string name="AddOfferButtonInfo">Add new car sale offer</string>
     <string name="AboutAuthorButtonInfo">See info about app developer</string>
-    <string-array name="carCharacteristics">
-        <item>Hyndai</item>
-        <item>20</item>
-        <item>34</item>
-        <item>Automatic</item>
-    </string-array>
+    <string name="e_mail">E-mail</string>
+    <string name="password">Пароль</string>
 </resources>

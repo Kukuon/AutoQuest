@@ -9,6 +9,7 @@ import android.os.Bundle;
 import android.view.View;
 
 import com.example.autoquest.databinding.MainActivityLayoutBinding;
+import com.google.firebase.FirebaseApp;
 
 import java.util.ArrayList;
 
@@ -25,6 +26,10 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         mainActivityLayoutBinding = mainActivityLayoutBinding.inflate(getLayoutInflater());
         setContentView(mainActivityLayoutBinding.getRoot());
+
+        // Firebase initialization
+
+        FirebaseApp.initializeApp(this);
 
         arrayList = new ArrayList<>();
         dbHandler = new DBHandler(MainActivity.this);

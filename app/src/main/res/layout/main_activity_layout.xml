@@ -34,6 +34,12 @@
             android:scaleType="fitCenter"
             android:src="@drawable/search_svg"/>
 
+        <View
+            android:id="@+id/divider"
+            android:layout_width="1dp"
+            android:layout_height="match_parent"
+            android:background="?android:attr/listDivider" />
+
         <ImageButton
             android:id="@+id/favoritesButton"
             android:layout_width="match_parent"
@@ -44,6 +50,12 @@
             android:contentDescription="@string/aboutProgramButtonInfo"
             android:scaleType="fitCenter"
             android:src="@drawable/favorites_svg"/>
+
+        <View
+            android:id="@+id/divider2"
+            android:layout_width="1dp"
+            android:layout_height="match_parent"
+            android:background="?android:attr/listDivider" />
 
         <ImageButton
             android:id="@+id/addOfferButton"
@@ -56,6 +68,12 @@
             android:scaleType="fitCenter"
             android:src="@drawable/circle_plus_svg"/>
 
+        <View
+            android:id="@+id/divider3"
+            android:layout_width="1dp"
+            android:layout_height="match_parent"
+            android:background="?android:attr/listDivider" />
+
         <ImageButton
             android:id="@+id/chatButton"
             android:layout_width="match_parent"
@@ -66,6 +84,12 @@
             android:contentDescription="@string/AboutAuthorButtonInfo"
             android:scaleType="fitCenter"
             android:src="@drawable/chats_svg"/>
+
+        <View
+            android:id="@+id/divider4"
+            android:layout_width="1dp"
+            android:layout_height="match_parent"
+            android:background="?android:attr/listDivider" />
 
         <ImageButton
             android:id="@+id/accountButton"

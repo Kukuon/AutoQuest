@@ -24,6 +24,10 @@
         <activity android:name=".AddOfferActivity"/>
         <activity android:name=".MainActivity"/>
         <activity android:name=".RegistrationActivity"/>
+
+        <meta-data
+            android:name="preloaded_fonts"
+            android:resource="@array/preloaded_fonts" />
     </application>
 
 </manifest>
