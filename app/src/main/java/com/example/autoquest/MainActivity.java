@@ -1,63 +1,71 @@
 package com.example.autoquest;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
+import android.widget.GridView;
 
+import com.example.autoquest.databinding.FragmentHomeBinding;
 import com.example.autoquest.databinding.MainActivityLayoutBinding;
-import com.google.firebase.FirebaseApp;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
+
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
 
-    private ArrayList<Car> arrayList;
-    private  MainActivityLayoutBinding mainActivityLayoutBinding;
-    private DBHandler dbHandler;
-    private RecyclerView recyclerView;
-    private CarAdapter carAdapter;
+    final static String LOG = "MainActivity";
+
+    private MainActivityLayoutBinding mainActivityLayoutBinding;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        mainActivityLayoutBinding = mainActivityLayoutBinding.inflate(getLayoutInflater());
+        mainActivityLayoutBinding = MainActivityLayoutBinding.inflate(getLayoutInflater());
         setContentView(mainActivityLayoutBinding.getRoot());
 
-        // Firebase initialization
+        mainActivityLayoutBinding.bottomBar.setOnItemSelectedListener(item -> {
+            if (item.getItemId() == R.id.search) {
+                replaceFragment(new SearchFragment());
+            } else if (item.getItemId() == R.id.favorites) {
+                replaceFragment(new FavoritesFragment());
+            } else if (item.getItemId() == R.id.home) {
+                replaceFragment(new HomeFragment());
+            } else if (item.getItemId() == R.id.chats) {
+                replaceFragment(new ChatsFragment());
+            } else if (item.getItemId() == R.id.settings) {
+                replaceFragment(new SettingsFragment());
+            }
+            return true;
+        });
+        mainActivityLayoutBinding.bottomBar.setSelectedItemId(R.id.home);
+        replaceFragment(new HomeFragment());
 
-        FirebaseApp.initializeApp(this);
 
-        arrayList = new ArrayList<>();
-        dbHandler = new DBHandler(MainActivity.this);
-
-        arrayList = dbHandler.readCars();
-
-        carAdapter = new CarAdapter(arrayList, MainActivity.this);
-        recyclerView = findViewById(R.id.RVList);
-
-        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(MainActivity.this, RecyclerView.VERTICAL, false);
-        recyclerView.setLayoutManager(linearLayoutManager);
-
-        recyclerView.setAdapter(carAdapter);
-
-        mainActivityLayoutBinding.addOfferButton.setOnClickListener(new View.OnClickListener() {
+        FloatingActionButton fab = findViewById(R.id.floatingActionButton);
+        fab.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(MainActivity.this, AddOfferActivity.class);
-                startActivity(intent);
+            public void onClick(View view) {
+                startActivity(new Intent(MainActivity.this, CreateOfferActivity.class));
             }
         });
 
-        mainActivityLayoutBinding.accountButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                    Intent intent = new Intent(MainActivity.this, LoginActivity.class);
-                    startActivity(intent);
-            }
-        });
+    }
+
+    private void replaceFragment(Fragment fragment) {
+        FragmentManager fragmentManager = getSupportFragmentManager();
+        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+        fragmentTransaction.replace(R.id.frameLayout, fragment);
+        fragmentTransaction.commit();
     }
 }

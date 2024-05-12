@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:title="Поиск"
+        android:id="@+id/search"
+        android:icon="@drawable/search_svg"/>
+
+    <item
+        android:title="Избранное"
+        android:id="@+id/favorites"
+        android:icon="@drawable/favorites_svg"/>
+
+    <item
+        android:title="Главная"
+        android:id="@+id/home"
+        android:icon="@drawable/home_svg"/>
+
+    <item
+        android:title="Сообщения"
+        android:id="@+id/chats"
+        android:icon="@drawable/chats_svg"/>
+
+    <item
+        android:title="Прочее"
+        android:id="@+id/settings"
+        android:icon="@drawable/settings_svg"/>
+</menu>

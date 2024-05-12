@@ -8,99 +8,42 @@
     tools:context=".MainActivity"
     android:background="@color/color_main">
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/RVList"
+    <FrameLayout
+        android:id="@+id/frameLayout"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_height="match_parent">
+    </FrameLayout>
 
-    <LinearLayout
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/floatingActionButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:backgroundTint="@android:color/holo_blue_light"
+        android:clickable="true"
+        app:srcCompat="@drawable/plus_large_svg"
+        android:contentDescription="TODO"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginBottom="80dp"
+        android:layout_marginEnd="16dp"
+        tools:ignore="RelativeOverlap" />
+
+    <View
+        android:id="@+id/divider"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_above="@id/bottomBar"
+        android:background="@android:color/white"/>
+
+    <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/bottomBar"
         android:layout_width="match_parent"
         android:layout_height="60dp"
         android:layout_alignParentBottom="true"
         android:background="@color/color_bottom_bar"
-        android:orientation="horizontal"
-        app:layout_constraintBottom_toBottomOf="parent"
-        tools:context=".MainActivity">
-
-        <ImageButton
-            android:id="@+id/searchButton"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:padding="10dp"
-            android:layout_weight="1"
-            android:background="@android:color/transparent"
-            android:contentDescription="@string/AboutAuthorButtonInfo"
-            android:scaleType="fitCenter"
-            android:src="@drawable/search_svg"/>
-
-        <View
-            android:id="@+id/divider"
-            android:layout_width="1dp"
-            android:layout_height="match_parent"
-            android:background="?android:attr/listDivider" />
-
-        <ImageButton
-            android:id="@+id/favoritesButton"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:padding="10dp"
-            android:layout_weight="1"
-            android:background="@android:color/transparent"
-            android:contentDescription="@string/aboutProgramButtonInfo"
-            android:scaleType="fitCenter"
-            android:src="@drawable/favorites_svg"/>
-
-        <View
-            android:id="@+id/divider2"
-            android:layout_width="1dp"
-            android:layout_height="match_parent"
-            android:background="?android:attr/listDivider" />
-
-        <ImageButton
-            android:id="@+id/addOfferButton"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:padding="10dp"
-            android:layout_weight="1"
-            android:background="@android:color/transparent"
-            android:contentDescription="@string/AddOfferButtonInfo"
-            android:scaleType="fitCenter"
-            android:src="@drawable/circle_plus_svg"/>
-
-        <View
-            android:id="@+id/divider3"
-            android:layout_width="1dp"
-            android:layout_height="match_parent"
-            android:background="?android:attr/listDivider" />
-
-        <ImageButton
-            android:id="@+id/chatButton"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:padding="10dp"
-            android:layout_weight="1"
-            android:background="@android:color/transparent"
-            android:contentDescription="@string/AboutAuthorButtonInfo"
-            android:scaleType="fitCenter"
-            android:src="@drawable/chats_svg"/>
-
-        <View
-            android:id="@+id/divider4"
-            android:layout_width="1dp"
-            android:layout_height="match_parent"
-            android:background="?android:attr/listDivider" />
-
-        <ImageButton
-            android:id="@+id/accountButton"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:padding="10dp"
-            android:layout_weight="1"
-            android:background="@android:color/transparent"
-            android:contentDescription="@string/AboutAuthorButtonInfo"
-            android:scaleType="fitCenter"
-            android:src="@drawable/user_svg"/>
-    </LinearLayout>
-
+        app:menu="@menu/bottom_navmenu"
+        app:itemIconTint="#C0C0C0"
+        app:itemIconSize="25dp"
+        app:itemTextColor="@color/white"
+        app:itemTextAppearanceActive="@color/white" />
 </RelativeLayout>
