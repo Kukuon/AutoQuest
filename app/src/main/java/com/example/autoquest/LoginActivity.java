@@ -20,19 +20,17 @@ import com.google.firebase.auth.FirebaseAuth;
 public class LoginActivity extends AppCompatActivity {
 
     private FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();;
-
+    private LoginActivityLayoutBinding binding;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        binding = LoginActivityLayoutBinding.inflate(getLayoutInflater());
+        setContentView(binding.getRoot());
 
-        // binding
-        LoginActivityLayoutBinding loginActivityLayoutBinding = LoginActivityLayoutBinding.inflate(getLayoutInflater());
-        setContentView(loginActivityLayoutBinding.getRoot());
+        EditText emailInput = binding.emailInput;
+        EditText passwordInput = binding.passwordInput;
 
-        EditText emailInput = loginActivityLayoutBinding.emailInput;
-        EditText passwordInput = loginActivityLayoutBinding.passwordInput;
-
-        loginActivityLayoutBinding.acceptButton.setOnClickListener(new View.OnClickListener() {
+        binding.acceptButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 String email = emailInput.getText().toString();
@@ -62,13 +60,6 @@ public class LoginActivity extends AppCompatActivity {
                 }
             }
         });
-
-        loginActivityLayoutBinding.signupButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startActivity(new Intent(LoginActivity.this, SignUpActivity.class));
-            }
-        });
-
+        binding.signupButton.setOnClickListener(v -> startActivity(new Intent(LoginActivity.this, SignUpActivity.class)));
     }
 }

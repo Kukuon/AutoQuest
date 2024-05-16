@@ -7,34 +7,24 @@ import androidx.fragment.app.FragmentTransaction;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
-import android.widget.GridView;
 
-import com.example.autoquest.databinding.FragmentHomeBinding;
 import com.example.autoquest.databinding.MainActivityLayoutBinding;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.firestore.QueryDocumentSnapshot;
-
-
-import java.util.ArrayList;
-import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
 
     final static String LOG = "MainActivity";
 
-    private MainActivityLayoutBinding mainActivityLayoutBinding;
+    private MainActivityLayoutBinding binding;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        mainActivityLayoutBinding = MainActivityLayoutBinding.inflate(getLayoutInflater());
-        setContentView(mainActivityLayoutBinding.getRoot());
+        binding = MainActivityLayoutBinding.inflate(getLayoutInflater());
+        setContentView(binding.getRoot());
 
-        mainActivityLayoutBinding.bottomBar.setOnItemSelectedListener(item -> {
+        binding.bottomBar.setOnItemSelectedListener(item -> {
             if (item.getItemId() == R.id.search) {
                 replaceFragment(new SearchFragment());
             } else if (item.getItemId() == R.id.favorites) {
@@ -48,18 +38,8 @@ public class MainActivity extends AppCompatActivity {
             }
             return true;
         });
-        mainActivityLayoutBinding.bottomBar.setSelectedItemId(R.id.home);
+        binding.bottomBar.setSelectedItemId(R.id.home);
         replaceFragment(new HomeFragment());
-
-
-        FloatingActionButton fab = findViewById(R.id.floatingActionButton);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                startActivity(new Intent(MainActivity.this, CreateOfferActivity.class));
-            }
-        });
-
     }
 
     private void replaceFragment(Fragment fragment) {

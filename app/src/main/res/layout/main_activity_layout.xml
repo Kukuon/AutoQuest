@@ -14,20 +14,6 @@
         android:layout_height="match_parent">
     </FrameLayout>
 
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/floatingActionButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:backgroundTint="@android:color/holo_blue_light"
-        android:clickable="true"
-        app:srcCompat="@drawable/plus_large_svg"
-        android:contentDescription="TODO"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentEnd="true"
-        android:layout_marginBottom="80dp"
-        android:layout_marginEnd="16dp"
-        tools:ignore="RelativeOverlap" />
-
     <View
         android:id="@+id/divider"
         android:layout_width="match_parent"

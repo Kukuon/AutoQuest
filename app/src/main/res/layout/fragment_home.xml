@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout
+<RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
@@ -7,6 +7,20 @@
     android:layout_height="match_parent"
     tools:context=".HomeFragment"
     android:background="@color/color_main">
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/fab"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:backgroundTint="@android:color/holo_blue_light"
+        android:clickable="true"
+        app:srcCompat="@drawable/plus_large_svg"
+        android:contentDescription="TODO"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginBottom="80dp"
+        android:layout_marginEnd="16dp"
+        tools:ignore="RelativeOverlap" />
 
     <GridView
         android:id="@+id/gridElement"
@@ -17,5 +31,4 @@
         android:horizontalSpacing="10dp"
         android:padding="5dp">
     </GridView>
-
-</FrameLayout>
+</RelativeLayout>
