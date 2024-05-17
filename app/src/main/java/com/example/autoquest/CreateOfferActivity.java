@@ -11,7 +11,7 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.example.autoquest.databinding.CreateOfferActivityLayoutBinding;
+import com.example.autoquest.databinding.CreateOfferActivityBinding;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -32,7 +32,7 @@ public class CreateOfferActivity extends AppCompatActivity {
     private static final int PICK_IMAGE_REQUEST = 22;
     private static final String TAG = "CreateOfferActivity";
 
-    private CreateOfferActivityLayoutBinding binding;
+    private CreateOfferActivityBinding binding;
 
     private FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
     private FirebaseUser firebaseUser = firebaseAuth.getCurrentUser();
@@ -51,7 +51,7 @@ public class CreateOfferActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        binding = CreateOfferActivityLayoutBinding.inflate(getLayoutInflater());
+        binding = CreateOfferActivityBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
         storageReference = FirebaseStorage.getInstance().getReference("uploads");

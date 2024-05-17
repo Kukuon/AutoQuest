@@ -1,7 +1,6 @@
 package com.example.autoquest;
 
 import android.content.Context;
-import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.util.Log;
@@ -67,7 +66,7 @@ public class GridAdapter extends BaseAdapter {
         ViewHolder holder;
         if (convertView == null) {
             holder = new ViewHolder();
-            convertView = LayoutInflater.from(context).inflate(R.layout.grid_item_layout, parent, false);
+            convertView = LayoutInflater.from(context).inflate(R.layout.fragment_home_grid_item, parent, false);
 
             holder.textViewBrand = (TextView) convertView.findViewById(R.id.brandTV); // Добавлено для бренда
             holder.textViewModel = (TextView) convertView.findViewById(R.id.modelTV); // Добавлено для модели

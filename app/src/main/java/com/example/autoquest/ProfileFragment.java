@@ -13,13 +13,14 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 
-import com.example.autoquest.databinding.FragmentSettingsLoggedBinding;
-import com.example.autoquest.databinding.FragmentSettingsUnloggedBinding;
+import com.example.autoquest.databinding.FragmentProfileLoggedBinding;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
+
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
@@ -27,23 +28,24 @@ import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 
-public class SettingsFragment extends Fragment {
+public class ProfileFragment extends Fragment {
 
     private FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
     private FirebaseUser firebaseUser = firebaseAuth.getCurrentUser();
 
-    private FragmentSettingsLoggedBinding binding;
+    private BottomNavigationView bottomNavigationView;
 
-    public SettingsFragment() {
+    private FragmentProfileLoggedBinding binding;
+
+    public ProfileFragment() {
         // Required empty public constructor
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         // Проверяем, вошел ли пользователь в систему
         if (firebaseUser != null) {
-
-            binding = FragmentSettingsLoggedBinding.inflate(inflater, container, false);
+            binding = FragmentProfileLoggedBinding.inflate(inflater, container, false);
             DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference();
 
             // Получаем ссылку на узел с информацией о пользователе
@@ -90,14 +92,14 @@ public class SettingsFragment extends Fragment {
                 @Override
                 public void onClick(View v) {
                     firebaseAuth.signOut();
-                    getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.frameLayout, new SettingsFragment()).commit();
+                    getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.frameLayout, new ProfileFragment()).commit();
                 }
             });
 
             return binding.getRoot(); // Возвращаем корневой вид разметки
         } else {
             // В макете для неавторизованного пользователя
-            View rootView = inflater.inflate(R.layout.fragment_settings_unlogged, container, false);
+            View rootView = inflater.inflate(R.layout.fragment_profile_unlogged, container, false);
 
             // Находим кнопку для перехода на активити входа в аккаунт
             Button goToLoginButton = rootView.findViewById(R.id.goToLoginButton);

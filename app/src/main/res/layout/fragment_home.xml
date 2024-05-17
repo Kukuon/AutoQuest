@@ -29,6 +29,7 @@
         android:numColumns="2"
         android:verticalSpacing="10dp"
         android:horizontalSpacing="10dp"
-        android:padding="5dp">
+        android:padding="5dp"
+        android:clickable="true">
     </GridView>
 </RelativeLayout>

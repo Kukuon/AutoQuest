@@ -1,5 +1,6 @@
 package com.example.autoquest;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import androidx.fragment.app.Fragment;
@@ -7,6 +8,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import com.example.autoquest.databinding.FragmentHomeBinding;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -43,12 +45,17 @@ public class HomeFragment extends Fragment {
 
         fab = binding.fab;
 
-        if (firebaseUser != null) {
-            fab.setVisibility(View.VISIBLE);
-            fab.setOnClickListener(v -> startActivity(new Intent(getContext(), CreateOfferActivity.class)));
-        } else {
-            fab.setVisibility(View.GONE);
-        }
+
+        fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (firebaseUser != null) {
+                    startActivity(new Intent(getContext(), CreateOfferActivity.class));
+                } else {
+                    Toast.makeText(getContext(), "Чтобы добавить объявление необходимо войти", Toast.LENGTH_LONG).show();
+                }
+            }
+        });
 
         databaseReference.addValueEventListener(new ValueEventListener() {
             @Override
@@ -68,8 +75,6 @@ public class HomeFragment extends Fragment {
                 Log.e("Firebase", "Failed to read value.", databaseError.toException());
             }
         });
-
-
 
         return binding.getRoot();
     }

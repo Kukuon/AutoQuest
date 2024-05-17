@@ -10,7 +10,7 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import com.example.autoquest.databinding.LoginActivityLayoutBinding;
+import com.example.autoquest.databinding.LoginActivityBinding;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.AuthResult;
@@ -20,11 +20,11 @@ import com.google.firebase.auth.FirebaseAuth;
 public class LoginActivity extends AppCompatActivity {
 
     private FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();;
-    private LoginActivityLayoutBinding binding;
+    private LoginActivityBinding binding;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        binding = LoginActivityLayoutBinding.inflate(getLayoutInflater());
+        binding = LoginActivityBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
         EditText emailInput = binding.emailInput;

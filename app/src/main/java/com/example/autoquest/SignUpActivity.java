@@ -14,7 +14,7 @@ import android.graphics.Bitmap;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.example.autoquest.databinding.SignupActivityLayoutBinding;
+import com.example.autoquest.databinding.SignupActivityBinding;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -44,14 +44,14 @@ public class SignUpActivity extends AppCompatActivity {
     private final int PICK_IMAGE_REQUEST = 22;
     private Uri filePath;
 
-    private SignupActivityLayoutBinding binding;
+    private SignupActivityBinding binding;
 
     private static final Pattern PHONE_NUMBER_PATTERN = Pattern.compile("^\\+\\d{11}$");
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        binding = SignupActivityLayoutBinding.inflate(getLayoutInflater());
+        binding = SignupActivityBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
         EditText emailInput = binding.emailInput;
