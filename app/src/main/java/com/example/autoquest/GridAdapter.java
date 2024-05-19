@@ -1,23 +1,16 @@
 package com.example.autoquest;
 
 import android.content.Context;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.util.Log;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
-
-import androidx.annotation.NonNull;
-
-import com.google.android.gms.tasks.OnFailureListener;
-import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
-
+import com.squareup.picasso.Picasso;
 import java.util.List;
 
 public class GridAdapter extends BaseAdapter {
@@ -25,18 +18,16 @@ public class GridAdapter extends BaseAdapter {
     private Context context;
     private List<Offer> offerList;
 
-    public GridAdapter(Context context, List<Offer> items) {
+    public GridAdapter(Context context, List<Offer> offers) {
         this.context = context;
-        offerList = items;
+        this.offerList = offers;
     }
 
-    // Очистить список элементов
     public void clear() {
         offerList.clear();
         notifyDataSetChanged();
     }
 
-    // Добавить элемент в список
     public void addItem(Offer item) {
         offerList.add(item);
         notifyDataSetChanged();
@@ -68,12 +59,12 @@ public class GridAdapter extends BaseAdapter {
             holder = new ViewHolder();
             convertView = LayoutInflater.from(context).inflate(R.layout.fragment_home_grid_item, parent, false);
 
-            holder.textViewBrand = (TextView) convertView.findViewById(R.id.brandTV); // Добавлено для бренда
-            holder.textViewModel = (TextView) convertView.findViewById(R.id.modelTV); // Добавлено для модели
-            holder.textViewGeneration = (TextView) convertView.findViewById(R.id.generationTV); // Добавлено для поколения
-            holder.textViewPrice = (TextView) convertView.findViewById(R.id.priceTV); // Добавлено для цены
-            holder.textViewYear = (TextView) convertView.findViewById(R.id.yearTV);
-            holder.imageView = (ImageView) convertView.findViewById(R.id.imageView);
+            holder.textViewBrand = convertView.findViewById(R.id.brandTV);
+            holder.textViewModel = convertView.findViewById(R.id.modelTV);
+            holder.textViewGeneration = convertView.findViewById(R.id.generationTV);
+            holder.textViewPrice = convertView.findViewById(R.id.priceTV);
+            holder.textViewYear = convertView.findViewById(R.id.yearTV);
+            holder.imageView = convertView.findViewById(R.id.imageView);
             convertView.setTag(holder);
         } else {
             holder = (ViewHolder) convertView.getTag();
@@ -81,36 +72,43 @@ public class GridAdapter extends BaseAdapter {
 
         Offer offer = offerList.get(position);
 
-        // устанвока текстовых полей
-        holder.textViewBrand.setText(offer.getBrand()); // Установка бренда
-        holder.textViewModel.setText(offer.getModel()); // Установка модели
-        holder.textViewGeneration.setText(offer.getGeneration()); // Установка поколения
-        holder.textViewPrice.setText(offer.getPrice() + " ₽"); // Установка цены
-        holder.textViewYear.setText(offer.getYear()); // установка года
+        holder.textViewBrand.setText(offer.getBrand());
+        holder.textViewModel.setText(offer.getModel());
+        holder.textViewGeneration.setText(offer.getGeneration());
+        holder.textViewPrice.setText(offer.getPrice() + " ₽");
+        holder.textViewYear.setText(offer.getYear());
 
-        // Загружаем первую фотографию из Firebase Storage
         StorageReference storageReference = FirebaseStorage.getInstance().getReference("uploads/offer_images/" + offer.getOfferId() + "/");
-
         storageReference.listAll().addOnSuccessListener(listResult -> {
             if (!listResult.getItems().isEmpty()) {
                 StorageReference firstImageRef = listResult.getItems().get(0);
-                Log.d("OfferAdapter", "ListResult os not empty");
-                final long ONE_MEGABYTE = 1024 * 1024;
-                firstImageRef.getBytes(ONE_MEGABYTE).addOnSuccessListener(new OnSuccessListener<byte[]>() {
-                    @Override
-                    public void onSuccess(byte[] bytes) {
-                        Bitmap bitmap = BitmapFactory.decodeByteArray(bytes, 0, bytes.length);
-                        holder.imageView.setImageBitmap(bitmap);
-                        Log.d("OfferAdapter", "Image loaded successfully");
-                    }
-                }).addOnFailureListener(new OnFailureListener() {
-                    @Override
-                    public void onFailure(@NonNull Exception e) {
-                        Log.e("OfferAdapter", "Не удалось загрузить изображение", e);
-                    }
+                firstImageRef.getDownloadUrl().addOnSuccessListener(uri -> {
+                    Picasso.get()
+                            .load(uri)
+                            .placeholder(R.drawable.no_image_svg1)
+                            .error(R.drawable.no_image_svg1)
+                            .into(holder.imageView);
+                }).addOnFailureListener(e -> {
+                    holder.imageView.setImageResource(R.drawable.no_image_svg1);
                 });
+            } else {
+                holder.imageView.setImageResource(R.drawable.no_image_svg1);
             }
-        }).addOnFailureListener(e -> Log.e("OfferAdapter", "Не удалось загрузить изображение", e));
+        }).addOnFailureListener(e -> {
+            holder.imageView.setImageResource(R.drawable.no_image_svg1);
+        });
+
+        convertView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // Обработка нажатия на элемент
+                Offer selectedOffer = offerList.get(position);
+                Intent intent = new Intent(context, OfferActivity.class);
+                intent.putExtra("offerId", selectedOffer.getOfferId());
+                context.startActivity(intent);
+            }
+        });
+
 
         return convertView;
     }
@@ -122,12 +120,11 @@ public class GridAdapter extends BaseAdapter {
     }
 
     static class ViewHolder {
-        TextView textViewBrand; // Добавлено для бренда
-        TextView textViewModel; // Добавлено для модели
-        TextView textViewGeneration; // Добавлено для поколения
-        TextView textViewPrice; // Добавлено для цены
+        TextView textViewBrand;
+        TextView textViewModel;
+        TextView textViewGeneration;
+        TextView textViewPrice;
         TextView textViewYear;
-        ImageView imageView; // изображение объявления
+        ImageView imageView;
     }
 }
-

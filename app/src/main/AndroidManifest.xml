@@ -13,7 +13,7 @@
         android:theme="@style/Theme.AutoQuest"
         tools:targetApi="31">
         <activity
-            android:name=".OfferDetailsActivity"
+            android:name=".OfferActivity"
             android:exported="false"
             android:label="@string/title_activity_offer"
             android:theme="@style/Theme.AutoQuest" />
@@ -29,6 +29,7 @@
         <activity android:name=".CreateOfferActivity" />
         <activity android:name=".LoginActivity" />
         <activity android:name=".SignUpActivity" />
+        <activity android:name=".MyOffersActivity"/>
 
         <meta-data
             android:name="preloaded_fonts"

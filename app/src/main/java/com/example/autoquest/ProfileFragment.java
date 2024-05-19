@@ -96,6 +96,8 @@ public class ProfileFragment extends Fragment {
                 }
             });
 
+            binding.myOffersBytton.setOnClickListener(v -> startActivity(new Intent(getContext(), MyOffersActivity.class)));
+
             return binding.getRoot(); // Возвращаем корневой вид разметки
         } else {
             // В макете для неавторизованного пользователя

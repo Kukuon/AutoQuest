@@ -1,5 +1,7 @@
 package com.example.autoquest;
 
+import java.util.List;
+
 public class Offer {
     private String offerId;
     private String brand;
@@ -12,6 +14,7 @@ public class Offer {
     private String fuelConsumption;
     private String ownerId;
     private String ownerPhoneNumber;
+    private List<String> imageUrls;
 
     public Offer() {
     }

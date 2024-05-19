@@ -1,6 +1,5 @@
 package com.example.autoquest;
 
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import androidx.fragment.app.Fragment;
@@ -8,6 +7,8 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.GridView;
 import android.widget.Toast;
 
 import com.example.autoquest.databinding.FragmentHomeBinding;
@@ -28,10 +29,8 @@ public class HomeFragment extends Fragment {
     private DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference("offers");
     private FragmentHomeBinding binding;
     private GridAdapter gridAdapter;
-
+    private List<Offer> offerList = new ArrayList<>();
     private FirebaseUser firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
-
-    private FloatingActionButton fab;
 
     public HomeFragment() {
         // Required empty public constructor
@@ -41,12 +40,11 @@ public class HomeFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         binding = FragmentHomeBinding.inflate(inflater, container, false);
         gridAdapter = new GridAdapter(getActivity(), new ArrayList<>());
-        binding.gridElement.setAdapter(gridAdapter);
+        binding.gridOffers.setAdapter(gridAdapter);
 
-        fab = binding.fab;
+        loadOffers();
 
-
-        fab.setOnClickListener(new View.OnClickListener() {
+        binding.fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if (firebaseUser != null) {
@@ -57,10 +55,13 @@ public class HomeFragment extends Fragment {
             }
         });
 
+        return binding.getRoot();
+    }
+
+    private void loadOffers() {
         databaseReference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                List<Offer> offerList = new ArrayList<>();
                 for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
                     Offer offer = snapshot.getValue(Offer.class);
                     if (offer != null) {
@@ -75,7 +76,5 @@ public class HomeFragment extends Fragment {
                 Log.e("Firebase", "Failed to read value.", databaseError.toException());
             }
         });
-
-        return binding.getRoot();
     }
 }

@@ -25,7 +25,7 @@
         android:id="@+id/usernameTV"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Moshonka"
+        android:text=""
         android:textColor="@color/white"
         android:textStyle="bold"
         android:textSize="25dp"
@@ -35,7 +35,7 @@
         android:id="@+id/phoneTV"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="+79859564806"
+        android:text=""
         android:textColor="@color/white"
         android:textStyle="bold"
         android:textSize="20sp"
@@ -46,32 +46,19 @@
         android:id="@+id/emailTV"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="kukuon04@gmail.com"
+        android:text=""
         android:textColor="@color/white"
         android:textStyle="bold"
         android:textSize="20sp"
         android:layout_margin="20dp"/>
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-        <Button
-            android:id="@+id/instructionButton"
-            android:layout_width="170dp"
-            android:layout_height="wrap_content"
-            android:text="Инструкция"
-            android:layout_margin="5dp"
-            android:layout_weight="1"
-            android:backgroundTint="@android:color/holo_blue_dark"/>
 
-        <Button
-            android:id="@+id/aboutDeveloperButton"
-            android:layout_width="170dp"
-            android:layout_height="wrap_content"
-            android:text="О разработчике"
-            android:layout_weight="1"
-            android:layout_margin="5dp"
-            android:backgroundTint="@android:color/holo_blue_dark"/>
-    </LinearLayout>
+    <Button
+        android:id="@+id/myOffersBytton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Мои объявления"
+        android:fontFamily="@font/rubik_medium"
+        android:backgroundTint="@android:color/holo_blue_dark"/>
 
     <ImageButton
         android:id="@+id/exitButton"
