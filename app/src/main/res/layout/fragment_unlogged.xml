@@ -5,10 +5,14 @@
     android:background="@color/color_main"
     android:gravity="center"
     android:orientation="vertical">
+    <ImageView
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:src="@drawable/no_user_svg" />
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Вы не в системe"
+        android:text="@string/not_loginned"
         android:textAlignment="center"
         android:fontFamily="@font/rubik_medium"
         android:textSize="25sp"
@@ -16,10 +20,9 @@
         android:textColor="@color/white"/>
     <Button
         android:id="@+id/goToLoginButton"
-        android:layout_width="100dp"
+        android:layout_width="150dp"
         android:layout_height="wrap_content"
-        android:textSize="17dp"
-        android:text="Войти"
-        android:backgroundTint="@android:color/holo_blue_dark"
-        android:layout_marginBottom="40dp"/>
+        android:textSize="17sp"
+        android:text="@string/enter1"
+        android:backgroundTint="@android:color/holo_blue_dark"/>
 </LinearLayout>

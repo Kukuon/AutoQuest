@@ -28,6 +28,7 @@ public class Offer {
         this.year = year;
     }
 
+    // основной конструктор для OfferActivity
     public Offer(String offerId, String brand, String model, String generation, String price, String year, String description, String enginePower, String fuelConsumption, String ownerId, String ownerPhoneNumber) {
         this.offerId = offerId;
         this.brand = brand;

@@ -1,10 +1,12 @@
 package com.example.autoquest;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.autoquest.databinding.ActivityMyOffersBinding;
 import com.example.autoquest.databinding.FragmentHomeBinding;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -22,7 +24,7 @@ public class MyOffersActivity extends AppCompatActivity {
     private FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
     private DatabaseReference databaseReference;
 
-    private FragmentHomeBinding binding;
+    private ActivityMyOffersBinding binding;
 
     private List<Offer> userOffers;
     private GridAdapter gridAdapter;
@@ -30,7 +32,7 @@ public class MyOffersActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        binding = FragmentHomeBinding.inflate(getLayoutInflater());
+        binding = ActivityMyOffersBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
         userOffers = new ArrayList<>();
@@ -63,7 +65,6 @@ public class MyOffersActivity extends AppCompatActivity {
                 }
             });
         }
-
+        binding.returnButton.setOnClickListener(v -> startActivity(new Intent(MyOffersActivity.this, MainActivity.class)));
     }
-
 }

@@ -1,64 +1,110 @@
 package com.example.autoquest;
 
+import android.content.Intent;
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 
-/**
- * A simple {@link Fragment} subclass.
- * Use the {@link FavoritesFragment#newInstance} factory method to
- * create an instance of this fragment.
- */
+import com.example.autoquest.databinding.FragmentFavoritesBinding;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+
+import java.util.ArrayList;
+import java.util.List;
+
 public class FavoritesFragment extends Fragment {
 
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
+    FragmentFavoritesBinding binding;
 
-    // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
+    private FirebaseUser firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
+
+    private DatabaseReference databaseReferenceOffers = FirebaseDatabase.getInstance().getReference("offers");
+    private DatabaseReference databaseReferenceUser;
+    private GridAdapter gridAdapter;
+
+    private List<Offer> favoriteOfferList = new ArrayList<>();
 
     public FavoritesFragment() {
         // Required empty public constructor
     }
 
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment FavoritesFragment.
-     */
-    // TODO: Rename and change types and number of parameters
-    public static FavoritesFragment newInstance(String param1, String param2) {
-        FavoritesFragment fragment = new FavoritesFragment();
-        Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
-        fragment.setArguments(args);
-        return fragment;
-    }
 
     @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        binding = FragmentFavoritesBinding.inflate(getLayoutInflater());
+        gridAdapter = new GridAdapter(getActivity(), new ArrayList<>());
+        binding.gridOffers.setAdapter(gridAdapter);
+
+        if (firebaseUser != null) {
+            databaseReferenceUser = FirebaseDatabase.getInstance().getReference("users")
+                                                                .child(firebaseUser.getUid())
+                                                                .child("favorites_offers");
+            loadFavoriteOffers();
+
+            return binding.getRoot();
+        } else {
+            View rootView = inflater.inflate(R.layout.fragment_unlogged, container, false);
+            Button goToLoginButton = rootView.findViewById(R.id.goToLoginButton);
+
+            goToLoginButton.setOnClickListener(v -> startActivity(new Intent(getContext(), LoginActivity.class)));
+
+            return rootView;
         }
     }
 
-    @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_favorites, container, false);
+
+    private void loadFavoriteOffers() {
+        databaseReferenceUser.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+
+                List<String> favoriteOfferIds = new ArrayList<>();
+
+                for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
+                    favoriteOfferIds.add(snapshot.getKey());
+                }
+                fetchOffers(favoriteOfferIds);
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+                Log.e("Firebase", "Failed to read value.", databaseError.toException());
+            }
+        });
+    }
+
+
+    private void fetchOffers(List<String> offerIds) {
+        favoriteOfferList.clear();
+        for (String offerId : offerIds) {
+            databaseReferenceOffers.child(offerId).addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot snapshot) {
+                    Offer offer = snapshot.getValue(Offer.class);
+                    if (offer != null) {
+                        offer.setOfferId(snapshot.getKey()); // Используем ключ узла как ID
+                        favoriteOfferList.add(offer);
+                        gridAdapter.updateOffers(favoriteOfferList);
+                    }
+                }
+
+                @Override
+                public void onCancelled(@NonNull DatabaseError databaseError) {
+                    Log.e("Firebase", "Failed to read value.", databaseError.toException());
+                }
+            });
+        }
     }
 }

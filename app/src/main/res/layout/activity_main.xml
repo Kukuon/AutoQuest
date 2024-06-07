@@ -11,25 +11,20 @@
     <FrameLayout
         android:id="@+id/frameLayout"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:layout_above="@id/bottomBar">
     </FrameLayout>
-
-    <View
-        android:id="@+id/divider"
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:layout_above="@id/bottomBar"
-        android:background="@android:color/white"/>
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/bottomBar"
         android:layout_width="match_parent"
         android:layout_height="60dp"
         android:layout_alignParentBottom="true"
-        android:background="@color/color_bottom_bar"
+        android:background="@color/dark_grey"
         app:menu="@menu/bottom_navmenu"
         app:itemIconTint="#C0C0C0"
         app:itemIconSize="25dp"
         app:itemTextColor="@color/white"
-        app:itemTextAppearanceActive="@color/white" />
+        app:itemTextAppearanceActive="@color/white"
+        android:backgroundTint="@color/black"/>
 </RelativeLayout>

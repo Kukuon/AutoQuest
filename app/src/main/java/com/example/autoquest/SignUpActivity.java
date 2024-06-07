@@ -5,16 +5,14 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
-import android.util.Log;
 import android.view.View;
-import android.widget.EditText;
 import android.widget.Toast;
 import android.graphics.Bitmap;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.example.autoquest.databinding.SignupActivityBinding;
+import com.example.autoquest.databinding.ActivitySignupBinding;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -39,47 +37,45 @@ import java.util.regex.Pattern;
 public class SignUpActivity extends AppCompatActivity {
 
     private FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
-    private StorageReference storageReference = FirebaseStorage.getInstance().getReference("uploads");;
+    private StorageReference storageReference = FirebaseStorage.getInstance().getReference("uploads");
 
     private final int PICK_IMAGE_REQUEST = 22;
     private Uri filePath;
 
-    private SignupActivityBinding binding;
+    private ActivitySignupBinding binding;
 
     private static final Pattern PHONE_NUMBER_PATTERN = Pattern.compile("^\\+\\d{11}$");
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        binding = SignupActivityBinding.inflate(getLayoutInflater());
+        binding = ActivitySignupBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
-        EditText emailInput = binding.emailInput;
-        EditText passwordInput = binding.passwordInput;
-        EditText phoneInput = binding.phoneInput;
-        EditText nameInput = binding.nameInput;
 
-        binding.selectButton.setOnClickListener(v -> selectImage());
+        binding.avatarImageView.setOnClickListener(v -> selectImage());
 
         binding.acceptButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String email = emailInput.getText().toString().trim();
-                String password = passwordInput.getText().toString().trim();
+
+                String email = binding.emailInput.getText().toString().trim();
+
+                String password = binding.passwordInput.getText().toString().trim();
                 String phoneNumber = binding.phoneInput.getText().toString().trim();
                 String name = binding.nameInput.getText().toString().trim();
 
                 if (email.isEmpty()) {
-                    emailInput.setError("E-mail не может быть пустым");
+                    binding.emailInput.setError("E-mail не может быть пустым");
                 }
                 if (phoneNumber.isEmpty() || !validatePhoneNumber(phoneNumber)) {
-                    phoneInput.setError("Номер телефона неверного формата");
+                    binding.phoneInput.setError("Номер телефона неверного формата");
                 }
                 if (name.isEmpty()) {
-                    nameInput.setError("Имя не может быть пустым");
+                    binding.nameInput.setError("Имя не может быть пустым");
                 }
                 if (password.isEmpty()) {
-                    passwordInput.setError("Пароль не может быть пустым");
+                    binding.passwordInput.setError("Пароль не может быть пустым");
                 } else {
                     firebaseAuth.createUserWithEmailAndPassword(email, password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                         @Override
@@ -111,8 +107,7 @@ public class SignUpActivity extends AppCompatActivity {
                 }
             }
         });
-
-        binding.backButton.setOnClickListener(v -> startActivity(new Intent(SignUpActivity.this, LoginActivity.class)));
+        binding.loginButton.setOnClickListener(v -> startActivity(new Intent(SignUpActivity.this, LoginActivity.class)));
     }
 
     private void selectImage() {
@@ -127,10 +122,8 @@ public class SignUpActivity extends AppCompatActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        // checking request code and result code
-        // if request code is PICK_IMAGE_REQUEST and
-        // resultCode is RESULT_OK
-        // then set image in the image view
+        // checking request code and result code, if request code is PICK_IMAGE_REQUEST and
+        // resultCode is RESULT_OK, then set image in the image view
         if (requestCode == PICK_IMAGE_REQUEST && resultCode == RESULT_OK && data != null && data.getData() != null) {
             // Get the Uri of data
             filePath = data.getData();
@@ -206,7 +199,6 @@ public class SignUpActivity extends AppCompatActivity {
                 if (snapshot.exists()) {
                     String phoneNumber = snapshot.child("phoneNumber").getValue(String.class);
                     String name = snapshot.child("name").getValue(String.class);
-                    // Используйте phoneNumber по вашему усмотрению
                 }
             }
             @Override

@@ -15,7 +15,7 @@
         android:backgroundTint="@android:color/holo_blue_light"
         android:clickable="true"
         app:srcCompat="@drawable/plus_large_svg"
-        android:contentDescription="TODO"
+        android:contentDescription="Добавить объявление"
         android:layout_alignParentBottom="true"
         android:layout_alignParentEnd="true"
         android:layout_marginBottom="80dp"
@@ -29,8 +29,9 @@
         android:numColumns="2"
         android:verticalSpacing="10dp"
         android:horizontalSpacing="10dp"
-        android:padding="5dp"
+        android:padding="10dp"
         android:clickable="true"
-        android:focusable="true">
+        android:focusable="true"
+        android:scrollbars="none">
     </GridView>
 </RelativeLayout>

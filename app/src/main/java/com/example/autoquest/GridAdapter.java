@@ -57,11 +57,9 @@ public class GridAdapter extends BaseAdapter {
         ViewHolder holder;
         if (convertView == null) {
             holder = new ViewHolder();
-            convertView = LayoutInflater.from(context).inflate(R.layout.fragment_home_grid_item, parent, false);
+            convertView = LayoutInflater.from(context).inflate(R.layout.item_grid, parent, false);
 
-            holder.textViewBrand = convertView.findViewById(R.id.brandTV);
-            holder.textViewModel = convertView.findViewById(R.id.modelTV);
-            holder.textViewGeneration = convertView.findViewById(R.id.generationTV);
+            holder.textViewTitle = convertView.findViewById(R.id.titleTV);
             holder.textViewPrice = convertView.findViewById(R.id.priceTV);
             holder.textViewYear = convertView.findViewById(R.id.yearTV);
             holder.imageView = convertView.findViewById(R.id.imageView);
@@ -72,12 +70,12 @@ public class GridAdapter extends BaseAdapter {
 
         Offer offer = offerList.get(position);
 
-        holder.textViewBrand.setText(offer.getBrand());
-        holder.textViewModel.setText(offer.getModel());
-        holder.textViewGeneration.setText(offer.getGeneration());
+        // установка основных параметров
+        holder.textViewTitle.setText(offer.getBrand() + " " + offer.getModel() + " " + offer.getGeneration());
         holder.textViewPrice.setText(offer.getPrice() + " ₽");
         holder.textViewYear.setText(offer.getYear());
 
+        // установка изображения
         StorageReference storageReference = FirebaseStorage.getInstance().getReference("uploads/offer_images/" + offer.getOfferId() + "/");
         storageReference.listAll().addOnSuccessListener(listResult -> {
             if (!listResult.getItems().isEmpty()) {
@@ -85,17 +83,19 @@ public class GridAdapter extends BaseAdapter {
                 firstImageRef.getDownloadUrl().addOnSuccessListener(uri -> {
                     Picasso.get()
                             .load(uri)
-                            .placeholder(R.drawable.no_image_svg1)
-                            .error(R.drawable.no_image_svg1)
+                            .placeholder(R.drawable.image_svg)
+                            .error(R.drawable.image_svg)
                             .into(holder.imageView);
+                    holder.imageView.setImageResource(R.drawable.no_svg);
+                    holder.imageView.setScaleType(ImageView.ScaleType.CENTER_CROP);
                 }).addOnFailureListener(e -> {
-                    holder.imageView.setImageResource(R.drawable.no_image_svg1);
+                    holder.imageView.setImageResource(R.drawable.image_svg);
                 });
             } else {
-                holder.imageView.setImageResource(R.drawable.no_image_svg1);
+                holder.imageView.setImageResource(R.drawable.image_svg);
             }
         }).addOnFailureListener(e -> {
-            holder.imageView.setImageResource(R.drawable.no_image_svg1);
+            holder.imageView.setImageResource(R.drawable.image_svg);
         });
 
         convertView.setOnClickListener(new View.OnClickListener() {
@@ -120,9 +120,7 @@ public class GridAdapter extends BaseAdapter {
     }
 
     static class ViewHolder {
-        TextView textViewBrand;
-        TextView textViewModel;
-        TextView textViewGeneration;
+        TextView textViewTitle;
         TextView textViewPrice;
         TextView textViewYear;
         ImageView imageView;

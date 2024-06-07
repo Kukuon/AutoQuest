@@ -1,27 +1,27 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
     <item
-        android:title="Поиск"
+        android:title="@string/search"
         android:id="@+id/search"
         android:icon="@drawable/search_svg"/>
 
     <item
-        android:title="Избранное"
+        android:title="@string/favorites"
         android:id="@+id/favorites"
-        android:icon="@drawable/favorites_svg"/>
+        android:icon="@drawable/favorite_off_svgrepo_com"/>
 
     <item
-        android:title="Главная"
+        android:title="@string/home"
         android:id="@+id/home"
         android:icon="@drawable/home_svg"/>
 
     <item
-        android:title="Сообщения"
+        android:title="@string/chats"
         android:id="@+id/chats"
         android:icon="@drawable/chats_svg"/>
 
     <item
-        android:title="Профиль"
+        android:title="@string/profile"
         android:id="@+id/profile"
-        android:icon="@drawable/no_user_svg"/>
+        android:icon="@drawable/user_svg"/>
 </menu>

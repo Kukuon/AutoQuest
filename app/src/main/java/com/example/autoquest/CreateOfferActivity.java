@@ -11,7 +11,7 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.example.autoquest.databinding.CreateOfferActivityBinding;
+import com.example.autoquest.databinding.ActivityCreateOfferBinding;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -32,13 +32,12 @@ public class CreateOfferActivity extends AppCompatActivity {
     private static final int PICK_IMAGE_REQUEST = 22;
     private static final String TAG = "CreateOfferActivity";
 
-    private CreateOfferActivityBinding binding;
+    private ActivityCreateOfferBinding binding;
 
     private FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
     private FirebaseUser firebaseUser = firebaseAuth.getCurrentUser();
 
     private StorageReference storageReference;
-
     private FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
 
     private DatabaseReference usersRef;
@@ -51,7 +50,7 @@ public class CreateOfferActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        binding = CreateOfferActivityBinding.inflate(getLayoutInflater());
+        binding = ActivityCreateOfferBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
         storageReference = FirebaseStorage.getInstance().getReference("uploads");
@@ -66,8 +65,6 @@ public class CreateOfferActivity extends AppCompatActivity {
             uploadToDatabase();
             startActivity(new Intent(CreateOfferActivity.this, MainActivity.class));
         });
-
-        binding.backButton.setOnClickListener(v -> startActivity(new Intent(CreateOfferActivity.this, MainActivity.class)));
     }
 
     private void selectImage() {

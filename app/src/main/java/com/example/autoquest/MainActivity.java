@@ -7,7 +7,7 @@ import androidx.fragment.app.FragmentTransaction;
 
 import android.os.Bundle;
 
-import com.example.autoquest.databinding.MainActivityBinding;
+import com.example.autoquest.databinding.ActivityMainBinding;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
@@ -17,17 +17,13 @@ public class MainActivity extends AppCompatActivity {
 
     private FirebaseUser firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
 
-    private MainActivityBinding binding;
+    private ActivityMainBinding binding;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        binding = MainActivityBinding.inflate(getLayoutInflater());
+        binding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
-
-        if (firebaseUser != null) {
-            binding.bottomBar.getMenu().findItem(R.id.profile).setIcon(R.drawable.user_svg);
-        }
 
         binding.bottomBar.setOnItemSelectedListener(item -> {
             if (item.getItemId() == R.id.search) {
@@ -45,6 +41,11 @@ public class MainActivity extends AppCompatActivity {
         });
         binding.bottomBar.setSelectedItemId(R.id.home);
         replaceFragment(new HomeFragment());
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
     }
 
     private void replaceFragment(Fragment fragment) {
